@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174c3d">
+  <title>Clinic Appointment Booking</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="wordmark" href="/" aria-label="Northbank Clinic home">
+      <span class="mark" aria-hidden="true">N</span>
+      <span>Northbank <b>Clinic</b></span>
+    </a>
+    <div class="access-key" aria-label="API key entry section">
+      <div class="key-header">
+        <label for="api-key">Step 1: Enter API key</label>
+        <span class="key-required">Required</span>
+      </div>
+      <div class="key-control">
+        <input id="api-key" type="password" autocomplete="off" spellcheck="false" aria-describedby="key-state" placeholder="Paste your API key here">
+        <button id="key-toggle" type="button" aria-label="Show API key">Show</button>
+      </div>
+      <div class="key-actions">
+        <button id="open-lookup" type="button" class="lookup-trigger">Find a booking</button>
+        <button id="load-slots" type="button" class="key-button">Load available times</button>
+      </div>
+      <span id="key-state" class="key-status" aria-live="polite">Your key is only saved in this browser tab.</span>
+    </div>
+  </header>
+
+  <dialog id="lookup-dialog" class="lookup-dialog" aria-labelledby="lookup-title">
+    <div class="lookup-dialog-heading">
+      <div>
+        <p class="eyebrow">BOOKING LOOKUP</p>
+        <h2 id="lookup-title">Find an existing booking</h2>
+      </div>
+      <button id="close-lookup" class="dialog-close" type="button" aria-label="Close booking lookup">×</button>
+    </div>
+    <div class="lookup-form">
+      <label for="lookup-id">Booking ID or email address</label>
+      <div class="lookup-row">
+        <input id="lookup-id" type="text" placeholder="Enter a booking ID or email address" autocomplete="off" spellcheck="false">
+        <button id="lookup-booking" type="button">Look up</button>
+      </div>
+    </div>
+    <div id="lookup-result" class="lookup-result" aria-live="polite"></div>
+  </dialog>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> APPOINTMENTS</p>
+      <h1 id="page-title">A good time to be seen.</h1>
+      <p class="intro-copy">Choose an available appointment and share your details to confirm it.</p>
+    </section>
+
+    <div class="booking-layout">
+      <section class="availability" aria-labelledby="slots-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SCHEDULE</p>
+            <h2 id="slots-title">Available times</h2>
+          </div>
+          <button class="refresh-button" id="refresh-slots" type="button" aria-label="Refresh available times" title="Refresh available times">
+            <span aria-hidden="true">↻</span>
+          </button>
+        </div>
+        <p id="slots-status" class="status-line" role="status" aria-live="polite">Enter your API key to load available times.</p>
+        <div id="slot-list" class="slot-list" aria-label="Appointment slots"></div>
+      </section>
+
+      <section class="booking-panel" aria-labelledby="booking-title">
+        <p class="eyebrow">YOUR VISIT</p>
+        <h2 id="booking-title">Booking details</h2>
+        <div id="selection-summary" class="selection-summary" aria-live="polite">
+          <span class="summary-marker" aria-hidden="true"></span>
+          <span>No appointment selected</span>
+        </div>
+        <form id="booking-form" novalidate>
+          <label for="patient-name">Full name</label>
+          <input id="patient-name" name="name" type="text" autocomplete="name" required>
+          <label for="patient-email">Email address</label>
+          <input id="patient-email" name="email" type="email" autocomplete="email" required>
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+          <button id="submit-booking" class="submit-button" type="submit" disabled>
+            <span>Confirm appointment</span><span aria-hidden="true">→</span>
+          </button>
+        </form>
+
+        <div id="confirmation" class="confirmation" hidden tabindex="-1" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer><span>Northbank Clinic</span><span>Appointment services</span></footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "public/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ]
+}
